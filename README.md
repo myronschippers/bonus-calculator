@@ -47,7 +47,7 @@ NOTE: You may abstract out this bonus calculation into a second function if you 
 - Make the app run only after the user clicks on a button on the page
 - Then style the output, making it visually appealing.
 
-# Breaking Down the Problem
+# Breaking Down and Solving the Problem
 
 ## Step 1: Big Picture, Need a Second List of Data
 
