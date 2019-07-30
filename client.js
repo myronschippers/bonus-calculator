@@ -40,4 +40,22 @@ const employees = [
 // This is not a race. Everyone on your team should understand what is happening.
 // Ask questions when you don't.
 
+/**
+ * Loops through a list of employees creating a new list of alternate employee data.
+ * @param {array} employeeList 
+ */
+function processAllEmployees(employeeList) {
+  const newEmployeeList = [];
+
+  for (let i = 0; i < employeeList.length; i++) {
+      const employeeInfo = employeeList[i];
+      const newEmployee = {}; // will need to be in the new employee structure
+
+      newEmployeeList.push(newEmployee);
+  }
+
+  return newEmployeeList;
+}
+
 console.log( employees );
+console.log('New Employee Data: ', processAllEmployees(employees));

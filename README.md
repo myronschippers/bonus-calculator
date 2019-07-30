@@ -46,3 +46,31 @@ NOTE: You may abstract out this bonus calculation into a second function if you 
 - Put the output on the DOM (visually on the page).
 - Make the app run only after the user clicks on a button on the page
 - Then style the output, making it visually appealing.
+
+# Breaking Down the Problem
+
+### Step 1
+
+At it's core we are looking to take an existing array of **Employees** convert each of the **Employees** into a new data structure and store them in a brand new array. If we start there we need a function that will process the provided **Employees** list and make a new list with alternate Employee data.
+
+```JS
+function processAllEmployees(employeeList) {
+    const newEmployeeList = [];
+
+    for (let i = 0; i < employeeList.length; i++) {
+        const employeeInfo = employeeList[i];
+        const newEmployee = {}; // will need to be in the new employee structure
+
+        newEmployeeList.push(newEmployee);
+    }
+
+    return newEmployeeList;
+}
+```
+
+Call to the new function `processAllEmployees` and see if it works. We should end up with two arrays in our browser console one with all of our original data and another one that has a list of blank objects with the same number of objects as the original list.
+
+```JS
+console.log( employees );
+console.log('New Employee Data: ', processAllEmployees(employees));
+```
