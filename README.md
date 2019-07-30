@@ -227,3 +227,34 @@ if (finalBonusPct > maxBonus) {
     finalBonusPct = minBonus
 }
 ```
+
+## Step 4: Calculating the Total Bonus Amount
+
+With the correct bonus percentage being calculated we can now use that to calculate our total Bonus Amount that will be added to our salary. For this calculation we'll be creating another new function that we can call from the `convertEmployeeData` function.
+
+```JS
+function calculateBonusAmount(employeeData, bonusPctInt) {
+    const annualSalary = parseInt(employeeData.annualSalary);
+    const bonusPct = bonusPctInt / 100;
+    const finalBonusAmount = annualSalary * bonusPct;
+
+    return finalBonusAmount;
+}
+```
+
+Add the function call to the `convertEmployeeData` function  and ensure that the value is being mapped to the new data object correctly. With this we can test our new function in the browser.
+
+```JS
+const name = originEmployee.name;
+const bonusPct = calculateBonusPct(originEmployee);
+const totalBonus = calculateBonusAmount(originEmployee, bonusPct);
+
+const newEmployeeData = {
+    name,
+    bonusPercentage: `${bonusPct}%`, // person readable
+    totalCompensation: 0, // machine readable
+    totalBonus, // machine readable
+};
+```
+
+## Step 5: Calculating the Total Compensation Adjustment

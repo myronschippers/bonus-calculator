@@ -67,12 +67,13 @@ function convertEmployeeData(originEmployee) {
     // values will need to be calculated and mapped to the new object
     const name = originEmployee.name;
     const bonusPct = calculateBonusPct(originEmployee);
+    const totalBonus = calculateBonusAmount(originEmployee, bonusPct);
 
     const newEmployeeData = {
         name,
         bonusPercentage: `${bonusPct}%`, // person readable
         totalCompensation: 0, // machine readable
-        totalBonus: 0, // machine readable
+        totalBonus, // machine readable
     };
 
     return newEmployeeData;
@@ -127,9 +128,23 @@ function calculateBonusPct(employeeData) {
         finalBonusPct = minBonus
     }
     
-    console.log('in calculateBonusPct - bonus: ', finalBonusPct);
     return finalBonusPct;
 }
 
+/**
+ * Calculate the ammount to be added to the employee annual salary given the bonus percentage provided.
+ * @param {object} employeeData
+ * @param {number} bonusPctInt
+ * @returns {number}
+ */
+function calculateBonusAmount(employeeData, bonusPctInt) {
+    const annualSalary = parseInt(employeeData.annualSalary);
+    const bonusPct = bonusPctInt / 100;
+    const finalBonusAmount = annualSalary * bonusPct;
+
+    return finalBonusAmount;
+}
+
 console.log( employees );
-console.log('New Employee Data: ', processAllEmployees(employees));
+console.log('New Employee Data: ');
+console.table(processAllEmployees(employees));
