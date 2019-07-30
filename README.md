@@ -201,7 +201,7 @@ if (employeeId.length == 4) {
 
 Test in the browser to verify that it's working.
 
-Now we need to make an adjustment to the bonus percentage for any employee whose salary is over $65,000.
+Now we need to make an adjustment to the bonus percentage for any employee whose salary is over $65,000. This adjustment will need to be made inside of the `calculateBonusPct` function.
 
 ```JS
 // income over $65,000 adjust bonus down 1%
@@ -209,5 +209,21 @@ const salaryNumber = parseInt(employeeData.annualSalary);
 
 if (salaryNumber > 65000) {
     finalBonusPct -= 1;
+}
+```
+
+Test in the browser to validate that it's working.
+
+Finally we're going to be setting maximum and minimum bonus levels and restricting the calculated bonus based on these levels. This adjustment will need to be made inside of the `calculateBonusPct` function.
+
+```JS
+// no bonus above 13% or below 0%
+const maxBonus = 13;
+const minBonus = 0;
+
+if (finalBonusPct > maxBonus) {
+    finalBonusPct = maxBonus;
+} else if (finalBonusPct < minBonus) {
+    finalBonusPct = minBonus
 }
 ```

@@ -118,6 +118,14 @@ function calculateBonusPct(employeeData) {
     }
 
     // no bonus above 13% or below 0%
+    const maxBonus = 13;
+    const minBonus = 0;
+
+    if (finalBonusPct > maxBonus) {
+        finalBonusPct = maxBonus;
+    } else if (finalBonusPct < minBonus) {
+        finalBonusPct = minBonus
+    }
     
     console.log('in calculateBonusPct - bonus: ', finalBonusPct);
     return finalBonusPct;
