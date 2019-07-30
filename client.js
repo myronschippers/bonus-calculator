@@ -42,19 +42,39 @@ const employees = [
 
 /**
  * Loops through a list of employees creating a new list of alternate employee data.
- * @param {array} employeeList 
+ * @param {array} employeeList
+ * @returns {array}
  */
 function processAllEmployees(employeeList) {
     const newEmployeeList = [];
 
     for (let i = 0; i < employeeList.length; i++) {
         const employeeInfo = employeeList[i];
-        const newEmployee = {}; // will need to be in the new employee structure
+        const newEmployee = convertEmployeeData(employeeInfo); // convert data structure
 
         newEmployeeList.push(newEmployee);
     }
 
     return newEmployeeList;
+}
+
+/**
+ * Convert the original employee structure into a new data object with a different structure.
+ * @param {object} originEmployee
+ * @returns {object}
+ */
+function convertEmployeeData(originEmployee) {
+    // values will need to be calculated and mapped to the new object
+    const name = originEmployee.name;
+
+    const newEmployeeData = {
+        name,
+        bonusPercentage: '1%', // person readable
+        totalCompensation: 0, // machine readable
+        totalBonus: 0, // machine readable
+    };
+
+    return newEmployeeData;
 }
 
 console.log( employees );

@@ -88,8 +88,33 @@ We are asked to make the employee data stored in the new array into a new format
 }
 ```
 
-Let's create a function that will take care of this data conversion for us.
+Let's create a function that will take care of this data conversion for us. We can already map the name directly from our original employee data as they have a one to one relationship.
 
 ```JS
+function convertEmployeeData(originEmployee) {
+    // values will need to be calculated and mapped to the new object
+    const name = originEmployee.name;
 
+    const newEmployeeData = {
+        name,
+        bonusPercentage: '1%', // person readable
+        totalCompensation: 0, // machine readable
+        totalBonus: 0, // machine readable
+    };
+
+    return newEmployeeData;
+}
 ```
+
+We still aren't using the new `convertEmployeeData` function so let's alter our `processAllEmployees` function to use `convertEmployeeData` inside of the loop.
+
+```JS
+for (let i = 0; i < employeeList.length; i++) {
+    const employeeInfo = employeeList[i];
+    const newEmployee = convertEmployeeData(employeeInfo); // convert data structure
+
+    newEmployeeList.push(newEmployee);
+}
+```
+
+Now we can bring it up in our braowser and the second array should have a list of objects with the propper data format instead of empty objects.
