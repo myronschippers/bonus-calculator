@@ -49,7 +49,7 @@ NOTE: You may abstract out this bonus calculation into a second function if you 
 
 # Breaking Down the Problem
 
-### Step 1
+## Step 1: Big Picture, Need a Second List of Data
 
 At it's core we are looking to take an existing array of **Employees** convert each of the **Employees** into a new data structure and store them in a brand new array. If we start there we need a function that will process the provided **Employees** list and make a new list with alternate Employee data.
 
@@ -73,4 +73,23 @@ Call to the new function `processAllEmployees` and see if it works. We should en
 ```JS
 console.log( employees );
 console.log('New Employee Data: ', processAllEmployees(employees));
+```
+
+## Step 2: Convert Data Structure of Employee
+
+We are asked to make the employee data stored in the new array into a new format that matches the following:
+
+```JS
+{
+    name: 'string',
+    bonusPercentage: 'string', // person readable
+    totalCompensation: 'number', // machine readable
+    totalBonus: 'number', // machine readable
+}
+```
+
+Let's create a function that will take care of this data conversion for us.
+
+```JS
+
 ```
