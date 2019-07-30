@@ -111,6 +111,11 @@ function calculateBonusPct(employeeData) {
     }
 
     // income over $65,000 adjust bonus down 1%
+    const salaryNumber = parseInt(employeeData.annualSalary);
+
+    if (salaryNumber > 65000) {
+        finalBonusPct -= 1;
+    }
 
     // no bonus above 13% or below 0%
     

@@ -200,3 +200,14 @@ if (employeeId.length == 4) {
 ```
 
 Test in the browser to verify that it's working.
+
+Now we need to make an adjustment to the bonus percentage for any employee whose salary is over $65,000.
+
+```JS
+// income over $65,000 adjust bonus down 1%
+const salaryNumber = parseInt(employeeData.annualSalary);
+
+if (salaryNumber > 65000) {
+    finalBonusPct -= 1;
+}
+```
