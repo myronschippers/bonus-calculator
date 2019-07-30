@@ -66,15 +66,51 @@ function processAllEmployees(employeeList) {
 function convertEmployeeData(originEmployee) {
     // values will need to be calculated and mapped to the new object
     const name = originEmployee.name;
+    const bonusPct = calculateBonusPct(originEmployee);
 
     const newEmployeeData = {
         name,
-        bonusPercentage: '1%', // person readable
+        bonusPercentage: `${bonusPct}%`, // person readable
         totalCompensation: 0, // machine readable
         totalBonus: 0, // machine readable
     };
 
     return newEmployeeData;
+}
+
+/**
+ * Calculate the bonus percentage as a whole number between 0 and 100.
+ * @param {object} employeeData
+ * @returns {number}
+ */
+function calculateBonusPct(employeeData) {
+    let finalBonusPct = 0;
+    const rating = employeeData.reviewRating;
+
+    // adjust bonus based on the employee's rating
+    switch (rating) {
+        case 5:
+            finalBonusPct = 10;
+            break;
+        case 4:
+            finalBonusPct = 6;
+            break;
+        case 3:
+            finalBonusPct = 4;
+            break;
+        default:
+            finalBonusPct = 0;
+            break;
+    }
+
+    // adjust the bonus based on ID length (4 digits long additional 5%)
+
+    // income over $65,000 adjust bonus down 1%
+
+    // no bonus above 13% or below 0%
+    
+    console.log('in calculateBonusPct - bonus: ', finalBonusPct);
+    return finalBonusPct;
 }
 
 console.log( employees );

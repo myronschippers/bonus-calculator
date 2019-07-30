@@ -118,3 +118,72 @@ for (let i = 0; i < employeeList.length; i++) {
 ```
 
 Now we can bring it up in our braowser and the second array should have a list of objects with the propper data format instead of empty objects.
+
+## Step 3: Calculate the Employee's Bonus Percentage
+
+There are some rules around how an employee's bonus percentage gets calculated so let's make a function that will take in the employee's data and give us back a whole number for the percentage from 0 to 100.
+
+```JS
+function calculateBonusPct(employeeData) {
+    let finalBonusPct = 0;
+    // adjust bonus based on the employee's rating
+
+    // adjust the bonus based on ID length (4 digits long additional 5%)
+
+    // income over $65,000 adjust bonus down 1%
+
+    // no bonus above 13% or below 0%
+    
+    console.log('in calculateBonusPct - bonus: ', finalBonusPct);
+    return finalBonusPct;
+}
+```
+
+The bonus calculation takes into consideration 4 diferent condition before a total bonus amount reaches it's final determination. Let's tackle the first factor which is the rating the employee has received.
+
+```JS
+function calculateBonusPct(employeeData) {
+    let finalBonusPct = 0;
+    const rating = employeeData.reviewRating;
+
+    // adjust bonus based on the employee's rating
+    switch (rating) {
+        case 5:
+            finalBonusPct = 10;
+            break;
+        case 4:
+            finalBonusPct = 6;
+            break;
+        case 3:
+            finalBonusPct = 4;
+            break;
+        default:
+            finalBonusPct = 0;
+            break;
+    }
+
+    // adjust the bonus based on ID length (4 digits long additional 5%)
+
+    // income over $65,000 adjust bonus down 1%
+
+    // no bonus above 13% or below 0%
+    
+    console.log('in calculateBonusPct - bonus: ', finalBonusPct);
+    return finalBonusPct;
+}
+```
+
+Let's add a call to the new `calculateBonusPct` function to our `convertEmployeeData` function so that we can test it in the browser.
+
+```JS
+// values will need to be calculated and mapped to the new object
+const name = originEmployee.name;
+const bonusPct = calculateBonusPct(originEmployee);
+
+const newEmployeeData = {
+    name,
+    bonusPercentage: `${bonusPct}%`, // person readable
+    totalCompensation: 0, // machine readable
+    totalBonus: 0, // machine readable
+};
+```
