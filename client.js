@@ -104,6 +104,11 @@ function calculateBonusPct(employeeData) {
     }
 
     // adjust the bonus based on ID length (4 digits long additional 5%)
+    const employeeId = employeeData.employeeNumber;
+
+    if (employeeId.length == 4) {
+        finalBonusPct += 5;
+    }
 
     // income over $65,000 adjust bonus down 1%
 

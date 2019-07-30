@@ -187,3 +187,16 @@ const newEmployeeData = {
     totalBonus: 0, // machine readable
 };
 ```
+
+With the initial bonus percentage calculated let's add an adjustment for the the ID's whose length is 4 digits long. This adjustment will need to be made inside of the `calculateBonusPct` function.
+
+```JS
+// adjust the bonus based on ID length (4 digits long additional 5%)
+const employeeId = employeeData.employeeNumber;
+
+if (employeeId.length == 4) {
+    finalBonusPct += 5;
+}
+```
+
+Test in the browser to verify that it's working.
