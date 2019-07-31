@@ -49,6 +49,8 @@ NOTE: You may abstract out this bonus calculation into a second function if you 
 
 # Breaking Down and Solving the Problem
 
+The steps that follow are the mental process that I used to work through the problem. Everyone works through things in their own way so please allow yourself to think of this in a different manner or make adjustments as you see fit.
+
 ## Step 1: Big Picture, Need a Second List of Data
 
 At it's core we are looking to take an existing array of **Employees** convert each of the **Employees** into a new data structure and store them in a brand new array. If we start there we need a function that will process the provided **Employees** list and make a new list with alternate Employee data.
