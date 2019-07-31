@@ -54,6 +54,24 @@ Clean Table
 }
 
 /* --------------------------------------------------------
+Button
+-------------------------------------------------------- */
+
+.btn {
+    padding: 10px 16px;
+    border: 1px solid #191970;
+    border-radius: 6px;
+    background: #4682b4;
+    color: #ffffff;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #315e82;
+}
+
+/* --------------------------------------------------------
 Flexboxgrid (imported)
 -------------------------------------------------------- */
 

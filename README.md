@@ -524,3 +524,31 @@ body {
 ```
 
 That's much better.
+
+### Step 2.2: Styling the Button
+
+In order to style our **Calculate Bonuses** button we will need to add a class to the `<button>` tag. But wait don't we have the `.js-calcBonuses` class? We do but it is specifically being used as a JS selector so let's use a different class tht can just handle styling.
+
+```HTML
+<td colspan="4" class="cleanTable-cell">
+    <button class="btn js-calcBonuses">Calculate Bonuses</button>
+</td>
+```
+
+Once the class is in place we start styling it until we're at a place where we like the button.
+
+```CSS
+.btn {
+    padding: 10px 16px;
+    border: 1px solid #191970;
+    border-radius: 6px;
+    background: #4682b4;
+    color: #ffffff;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #315e82;
+}
+```
