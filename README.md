@@ -525,7 +525,7 @@ body {
 
 That's much better.
 
-### Step 2.2: Styling the Button
+### Step 2.3: Styling the Button
 
 In order to style our **Calculate Bonuses** button we will need to add a class to the `<button>` tag. But wait don't we have the `.js-calcBonuses` class? We do but it is specifically being used as a JS selector so let's use a different class tht can just handle styling.
 
@@ -552,3 +552,95 @@ Once the class is in place we start styling it until we're at a place where we l
     background: #315e82;
 }
 ```
+
+## Step 3: Rendering Bonuses
+
+We now need to look at calling to the calculations we have already created and render the array resulting from those calculations to our DOM. With the styling in place and our calculation functions already working we just need to figure out how we're going to render the results from our calculation when the user clicks the button.
+
+### Step 3.1: Calculate on Button Click
+
+The click behavior is already in place so let's hide the `console` commands that are calling to our calculate function so we can start testing the click function to cause our calculations to run.
+
+```JS
+console.table(employees);
+// console.log('New Employee Data: ');
+// console.table(processAllEmployees(employees));
+```
+
+Inside of our `clickCalcBonus` function we can now call to the `processAllEmployees` function and store the restult in a new variable that we will display in our browser console using `console.table`.
+
+```JS
+function clickCalcBonus(event) {
+    console.log('clicked Calculate Bonus');
+    const employeeBonusList = processAllEmployees(employees);
+    console.table(employeeBonusList);
+}
+```
+
+With that update we can now refresh our browser and test to see that when we click the **Calculate Bonuses** button a table showing the new employees bonus array should show up in the browser's console.
+
+### Step 3.2: Render Bonuses to the DOM
+
+Create a function that will simply log out the employee bonus data when it receives it.
+
+```JS
+function renderEmpoyeeBonuses(employeeBonuses) {
+    console.table(employeeBonuses);
+}
+```
+
+With our render function in place let's call to that function from `clickCalcBonus` passing it the results from our calculations stored in the ` employeeBonusList` variable instead of logging it out to our console.
+
+```JS
+function clickCalcBonus(event) {
+    console.log('clicked Calculate Bonus');
+    const employeeBonusList = processAllEmployees(employees);
+
+    renderEmpoyeeBonuses(employeeBonusList);
+}
+```
+
+A test of the button in our browser after a quick refresh should have the same results from **Step 3.1**.
+
+It's time to actually build out the `renderEmpoyeeBonuses` function so that it renders the bonuses table to the DOM. This will look very similar to the `renderEmployees` function we wrote earlier but with some key differences.
+
+```JS
+function renderEmpoyeeBonuses(employeeBonuses) {
+    const $bonusesContainer = $('.js-bonusesContainer');
+    const $bonusesTable = $('<table cellspacing="0" class="cleanTable">'
+        + '<thead class="cleanTable-hd">'
+            + '<tr>'
+                + '<td class="cleanTable-cell">Name</td>'
+                + '<td class="cleanTable-cell">Bonus (Pct)</td>'
+                + '<td class="cleanTable-cell">Bonus ($)</td>'
+                + '<td class="cleanTable-cell">Total Conmpensation</td>'
+            + '</tr>'
+        + '</thead>'
+        + '<tbody class="cleanTable-bd">'
+        + '</tbody>'
+        + '<tfoot class="cleanTable-ft">'
+            + '<tr>'
+                + '<td colspan="4" class="cleanTable-cell">'
+                    + 'Bonuses are a reflection of company standards.'
+                + '</td>'
+            + '</tr>'
+        + '</tfoot>'
+    + '</table>');
+
+    const $bonusesTbody = $bonusesTable.appendTo($bonusesContainer).find('tbody');
+
+    for (let i = 0; i < employeeBonuses.length; i++) {
+        const employee = employeeBonuses[i];
+        const rowElement = '<tr>'
+            + '<td class="cleanTable-cell">' + employee.name + '</td>'
+            + '<td class="cleanTable-cell">' + employee.bonusPercentage + '</td>'
+            + '<td class="cleanTable-cell">' + employee.totalBonus + '</td>'
+            + '<td class="cleanTable-cell">' + employee.totalCompensation + '</td>'
+        + '</tr>';
+
+        $bonusesTbody.append(rowElement);
+    }
+}
+```
+
+WOOOO HOOOO!!!! I can see my table.
