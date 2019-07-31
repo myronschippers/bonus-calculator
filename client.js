@@ -128,7 +128,7 @@ function calculateBonusPct(employeeData) {
     } else if (finalBonusPct < minBonus) {
         finalBonusPct = minBonus
     }
-    
+
     return finalBonusPct;
 }
 
@@ -159,7 +159,7 @@ function calculateTotalCompensation(employeeData, totalBonus) {
     return finalCompensation;
 }
 
-console.log( employees );
+console.log(employees);
 console.log('New Employee Data: ');
 console.table(processAllEmployees(employees));
 
@@ -171,9 +171,9 @@ console.table(processAllEmployees(employees));
 $(document).ready(onReady);
 
 function onReady() {
-    const $btnCalcBonus = $('.js-calcBonus');
+    const $btnCalcBonuses = $('.js-calcBonuses');
 
-    $btnCalcBonus.on('click', clickCalcBonus);
+    $btnCalcBonuses.on('click', clickCalcBonus);
 }
 
 function clickCalcBonus(event) {

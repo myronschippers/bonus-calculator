@@ -355,9 +355,9 @@ With the HTML markup in place we'll jump over to the JS and kick off the JS sele
 $(document).ready(onReady);
 
 function onReady() {
-    const $btnCalcBonus = $('.js-calcBonus');
+    const $btnCalcBonuses = $('.js-calcBonuses');
 
-    $btnCalcBonus.on('click', clickCalcBonus);
+    $btnCalcBonuses.on('click', clickCalcBonus);
 }
 
 function clickCalcBonus(event) {
