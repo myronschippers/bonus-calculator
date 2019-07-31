@@ -364,3 +364,5 @@ function clickCalcBonus(event) {
     console.log('clicked Calculate Bonus');
 }
 ```
+
+Give this a test in the browser before moving on so that when the button on the web page is clicked a message shows up in the browser console.

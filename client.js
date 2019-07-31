@@ -174,8 +174,27 @@ function onReady() {
     const $btnCalcBonuses = $('.js-calcBonuses');
 
     $btnCalcBonuses.on('click', clickCalcBonus);
+    renderEmployees();
 }
 
 function clickCalcBonus(event) {
     console.log('clicked Calculate Bonus');
+}
+
+function renderEmployees() {
+    const $employeesTable = $('.js-employees');
+
+    $employeesTable.empty();
+
+    for (let i = 0; i < employees.length; i++) {
+        const employee = employees[i];
+        const rowElement = '<tr>'
+            + '<td>' + employee.name + '</td>'
+            + '<td>' + employee.employeeNumber + '</td>'
+            + '<td>' + employee.annualSalary + '</td>'
+            + '<td>' + employee.reviewRating + '</td>'
+        + '</tr>';
+
+        $employeesTable.append(rowElement);
+    }
 }
