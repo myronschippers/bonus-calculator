@@ -3,9 +3,35 @@
   <head>
     <meta charset="utf-8">
     <title>Bonus Calculator Object Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery.min.js" charset="utf-8"></script>
     <script src="client.js" charset="utf-8"></script>
   </head>
   <body>
     <h1>Bonus Calculator Object Challenge</h1>
+
+    <div class="container">
+      <table>
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td>ID</td>
+            <td>Salary</td>
+            <td>Rating</td>
+          </tr>
+        </thead>
+        <tbody class="js-employees">
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="utlText-alnRight">
+              <button class="js-calcBonuses">Calculate Bonuses</button>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="container js-bonusesContainer"></div>
   </body>
 </html>

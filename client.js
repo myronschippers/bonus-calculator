@@ -162,3 +162,20 @@ function calculateTotalCompensation(employeeData, totalBonus) {
 console.log( employees );
 console.log('New Employee Data: ');
 console.table(processAllEmployees(employees));
+
+//
+// STRETCH GOALS
+// Rendering employee data to the DOM
+// ----------------------------------------------------------------
+
+$(document).ready(onReady);
+
+function onReady() {
+    const $btnCalcBonus = $('.js-calcBonus');
+
+    $btnCalcBonus.on('click', clickCalcBonus);
+}
+
+function clickCalcBonus(event) {
+    console.log('clicked Calculate Bonus');
+}

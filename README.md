@@ -287,3 +287,80 @@ const newEmployeeData = {
     totalBonus, // machine readable
 };
 ```
+
+Our test logs are giving us a fully fleshed out new array of objects with the calculated bonuses.
+
+# Stretch Goals, Let's Work Through the Problem
+
+The stretch goals are asking us to visualize the data on the page. There is an inherint issue here of, "How do you want to visually represent the data?" We also know that the calculated bonuses for the new array aren't going to be calculated until a user clicks a button. A fairly common solution would be to show the employess list in a table. For this we'll go with a simple table.
+
+One table will display the current employee data before bonus calculations are made. We will then have a second table that will only be rendered after the user clicks the **Calculate Bonuses** button.
+
+## Step 1: Prepping for DOM Manipulation
+
+We start off by downloading and sourcing jQuery into our application. The jQuery file we can name `jquery.min.js`. We can also create a new `styles.css` file that will also get sourced in our `index.html` file.
+
+**index.html**
+
+```HTML
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Bonus Calculator Object Challenge</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="jquery.min.js" charset="utf-8"></script>
+    <script src="client.js" charset="utf-8"></script>
+  </head>
+  <body>
+```
+
+Now that jQuey is available and we have a stylesheet to work with we can add the HTML to our `index.html` that the JS will be interacting with. We are going to add all of the HTML markup that we think we are going to need at this point, this could potential change as we manipulate it with JS.
+
+```HTML
+  <body>
+    <h1>Bonus Calculator Object Challenge</h1>
+
+    <div class="container">
+      <table>
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td>ID</td>
+            <td>Salary</td>
+            <td>Rating</td>
+          </tr>
+        </thead>
+        <tbody class="js-employees">
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4" class="utlText-alnRight">
+              <button class="js-calcBonuses">Calculate Bonuses</button>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="container js-bonusesContainer"></div>
+  </body>
+```
+
+We have wrapped each section with a employees table in a `<div>` with a class of `container` which we will leverage for styling. Inside each of those container `<div>`s will be the table for displaying the employees. The first container `<div>` will hold the original employee data and it should be available at the time of render. In the second container `<div>` you will notice there is no table. This is because the table will only get rendered after the user has clicked the **Calculate Bonus** button and the caluculations have been run. You might also notice that we have added some `js-` classes to a couple of elements. We will leverage these in our JS to interact with those particular DOM elements.
+
+With the HTML markup in place we'll jump over to the JS and kick off the JS selection of elements. At this point the focus will be on setting up the ready state and hooking up the event handler for our **Calculate Button**.
+
+```JS
+$(document).ready(onReady);
+
+function onReady() {
+    const $btnCalcBonus = $('.js-calcBonus');
+
+    $btnCalcBonus.on('click', clickCalcBonus);
+}
+
+function clickCalcBonus(event) {
+    console.log('clicked Calculate Bonus');
+}
+```
