@@ -68,11 +68,12 @@ function convertEmployeeData(originEmployee) {
     const name = originEmployee.name;
     const bonusPct = calculateBonusPct(originEmployee);
     const totalBonus = calculateBonusAmount(originEmployee, bonusPct);
+    const totalCompensation = calculateTotalCompensation(originEmployee, totalBonus);
 
     const newEmployeeData = {
         name,
         bonusPercentage: `${bonusPct}%`, // person readable
-        totalCompensation: 0, // machine readable
+        totalCompensation, // machine readable
         totalBonus, // machine readable
     };
 
@@ -143,6 +144,19 @@ function calculateBonusAmount(employeeData, bonusPctInt) {
     const finalBonusAmount = annualSalary * bonusPct;
 
     return finalBonusAmount;
+}
+
+/**
+ * Calculate the final adjusted salary with the totalBonus added to the employee's current salary.
+ * @param {object} employeeData
+ * @param {number} totalBonus
+ * @returns {number}
+ */
+function calculateTotalCompensation(employeeData, totalBonus) {
+    const salaryNumber = parseInt(employeeData.annualSalary);
+    const finalCompensation = salaryNumber + totalBonus;
+
+    return finalCompensation;
 }
 
 console.log( employees );

@@ -258,3 +258,30 @@ const newEmployeeData = {
 ```
 
 ## Step 5: Calculating the Total Compensation Adjustment
+
+The final base requirement we need is the new adjusted annual salary mapped to the new employee object as `totalCompensation`. This will also be a new function so that we can keep the `convertEmployeeData` function where the data is being mapped clean of any actual calculations.
+
+```JS
+function calculateTotalCompensation(employeeData, totalBonus) {
+    const salaryNumber = parseInt(employeeData.annualSalary);
+    const finalCompensation = salaryNumber + totalBonus;
+
+    return finalCompensation;
+}
+```
+
+In order to test this in the browser we need to make some adjustments to the `convertEmployeeData` function. This includes the calling of our newly created function and the mapping of the `totalCompensation` amount to the new Employee data object.
+
+```JS
+const name = originEmployee.name;
+const bonusPct = calculateBonusPct(originEmployee);
+const totalBonus = calculateBonusAmount(originEmployee, bonusPct);
+const totalCompensation = calculateTotalCompensation(originEmployee, totalBonus);
+
+const newEmployeeData = {
+    name,
+    bonusPercentage: `${bonusPct}%`, // person readable
+    totalCompensation, // machine readable
+    totalBonus, // machine readable
+};
+```
