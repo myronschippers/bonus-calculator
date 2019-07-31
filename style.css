@@ -1,9 +1,56 @@
+html,
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif, Arial, sans-serif
+}
+
 /* --------------------------------------------------------
 Utility Text
 -------------------------------------------------------- */
 
 .utlText-alnRight {
     text-align: right;
+}
+
+/* --------------------------------------------------------
+Container
+-------------------------------------------------------- */
+
+.container {
+    width: 960px;
+    max-width: 100%;
+    padding: 8px 20px;
+    box-sizing: border-box;
+}
+
+/* --------------------------------------------------------
+Clean Table
+-------------------------------------------------------- */
+
+.cleanTable {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #a9a9a9;
+}
+
+.cleanTable-hd,
+.cleanTable-ft {
+    background: #d3d3d3;
+}
+
+.cleanTable-hd {
+    border-bottom: 1px solid #a9a9a9;
+}
+
+.cleanTable-bd > * > * {
+    border-bottom: 1px solid #a9a9a9;
+}
+
+.cleanTable-ft {
+    text-align: right;
+}
+
+.cleanTable-cell {
+    padding: 6px 10px;
 }
 
 /* --------------------------------------------------------

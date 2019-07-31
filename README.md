@@ -366,3 +366,161 @@ function clickCalcBonus(event) {
 ```
 
 Give this a test in the browser before moving on so that when the button on the web page is clicked a message shows up in the browser console.
+
+## Step 2: Rendering the Initial Employee List
+
+Taking a look at the page as it is right now we don't see any of the original data being printed to the page for the employees we were provided. Let's work on this so that when a user first loads the page they can see the initial data.
+
+### Step 2.1: Rendering Data to the DOM
+
+```JS
+function renderEmployees() {
+    const $employeesTable = $('.js-employees');
+
+    $employeesTable.empty();
+
+    for (let i = 0; i < employees.length; i++) {
+        const employee = employees[i];
+        const rowElement = '<tr>'
+            + '<td>' + employee.name + '</td>'
+            + '<td>' + employee.employeeNumber + '</td>'
+            + '<td>' + employee.annualSalary + '</td>'
+            + '<td>' + employee.reviewRating + '</td>'
+        + '</tr>';
+
+        $employeesTable.append(rowElement);
+    }
+}
+```
+
+```JS
+function onReady() {
+    const $btnCalcBonuses = $('.js-calcBonuses');
+
+    $btnCalcBonuses.on('click', clickCalcBonus);
+    renderEmployees();
+}
+```
+
+### Step 2.2: Styling the Table
+
+We already have the `.container` class being used as a wrapper around our two tables. Let's start by adding some layout styling to that class that restricts the width and adds some whitespace between the tables and edges of the browser window.
+
+```CSS
+.container {
+    width: 960px;
+    max-width: 100%;
+    padding: 8px 20px;
+    box-sizing: border-box;
+}
+```
+
+To start styling the table itself we are just going to add a class on the `<table>` tag of `.cleanTable`. The name could be anything but we chose *cleanTable* because we want to create a clean looking table.
+
+```HTML
+<div class="container">
+    <table class="cleanTable">
+        <thead>
+            <tr>
+            <td>Name</td>
+            <td>ID</td>
+            <td>Salary</td>
+            <td>Rating</td>
+            </tr>
+        </thead>
+```
+
+With the `.cleanTable` class in place we'll add the following styles to give it some more substance on our page.
+
+```CSS
+.cleanTable {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #a9a9a9;
+}
+```
+
+These styles ar OK but we want a little more details so let's add some classes to our markup for the `<thead>`, `<tbody>`, `<tfoot>`, and `<td>` tags. These classes will act as targets for our CSS styling.
+
+```HTML
+<div class="container">
+    <table cellspacing="0" class="cleanTable">
+        <thead class="cleanTable-hd">
+            <tr>
+                <td class="cleanTable-cell">Name</td>
+                <td class="cleanTable-cell">ID</td>
+                <td class="cleanTable-cell">Salary</td>
+                <td class="cleanTable-cell">Rating</td>
+            </tr>
+        </thead>
+        <tbody class="cleanTable-bd js-employees">
+        </tbody>
+        <tfoot class="cleanTable-ft">
+            <tr>
+                <td colspan="4" class="cleanTable-cell">
+                    <button class="js-calcBonuses">Calculate Bonuses</button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+```
+
+With the extra classes in place we'll go to two with our styles. Add some styling and then refresh our browser back and forth until we come up with something we like.
+
+```CSS
+.cleanTable {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #a9a9a9;
+}
+
+.cleanTable-hd,
+.cleanTable-ft {
+    background: #d3d3d3;
+}
+
+.cleanTable-hd {
+    border-bottom: 1px solid #a9a9a9;
+}
+
+.cleanTable-bd > * > * {
+    border-bottom: 1px solid #a9a9a9;
+}
+
+.cleanTable-ft {
+    text-align: right;
+}
+
+.cleanTable-cell {
+    padding: 6px 10px;
+}
+```
+
+Oh crap, our cell styling is not effecting the data in the `<tbody>`. This is because the elements in the `<tbody>` are rendered from our JS and we never added our `.cleanTable-cell` classes to the JS. Let's go into our `renderEmployees` function and add these classes.
+
+```JS
+    for (let i = 0; i < employees.length; i++) {
+        const employee = employees[i];
+        const rowElement = '<tr>'
+            + '<td class="cleanTable-cell">' + employee.name + '</td>'
+            + '<td class="cleanTable-cell">' + employee.employeeNumber + '</td>'
+            + '<td class="cleanTable-cell">' + employee.annualSalary + '</td>'
+            + '<td class="cleanTable-cell">' + employee.reviewRating + '</td>'
+        + '</tr>';
+
+        $employeesTable.append(rowElement);
+    }
+```
+
+**This font is awful!!!**
+Lets reset the font being used on the entire page at the top of our CSS document `style.css`.
+
+```CSS
+html,
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif, Arial, sans-serif
+}
+```
+
+That's much better.
