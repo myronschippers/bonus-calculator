@@ -729,4 +729,46 @@ function renderEmpoyeeBonuses(employeeBonuses) {
     const $bonusesTable = $(`<table cellspacing="0" class="cleanTable">
 ```
 
-### Step 4.3:
+### Step 4.3: Parse Salary only Once
+
+```JS
+function convertEmployeeData(originEmployee) {
+    // values will need to be calculated and mapped to the new object
+    const name = originEmployee.name;
+    const salaryNumber = parseInt(originEmployee.annualSalary);
+    const bonusPct = calculateBonusPct(originEmployee);
+    const totalBonus = calculateBonusAmount(salaryNumber, bonusPct);
+    const totalCompensation = calculateTotalCompensation(salaryNumber, totalBonus);
+```
+
+```JS
+function calculateBonusPct(employeeData, salaryNumber) {
+    let finalBonusPct = 0;
+    const rating = employeeData.reviewRating;
+
+    // ...additional code...
+
+    // income over $65,000 adjust bonus down 1%
+    if (salaryNumber > 65000) {
+        finalBonusPct -= 1;
+    }
+```
+
+```JS
+function calculateBonusAmount(annualSalary, bonusPctInt) {
+    const bonusPct = bonusPctInt / 100;
+    const finalBonusAmount = annualSalary * bonusPct;
+
+    return finalBonusAmount;
+}
+```
+
+```JS
+function calculateTotalCompensation(salaryNumber, totalBonus) {
+    const finalCompensation = salaryNumber + totalBonus;
+
+    return finalCompensation;
+}
+```
+
+### Step 4.4:

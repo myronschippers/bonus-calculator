@@ -66,9 +66,10 @@ function processAllEmployees(employeeList) {
 function convertEmployeeData(originEmployee) {
     // values will need to be calculated and mapped to the new object
     const name = originEmployee.name;
-    const bonusPct = calculateBonusPct(originEmployee);
-    const totalBonus = calculateBonusAmount(originEmployee, bonusPct);
-    const totalCompensation = calculateTotalCompensation(originEmployee, totalBonus);
+    const salaryNumber = parseInt(originEmployee.annualSalary);
+    const bonusPct = calculateBonusPct(originEmployee, salaryNumber);
+    const totalBonus = calculateBonusAmount(salaryNumber, bonusPct);
+    const totalCompensation = calculateTotalCompensation(salaryNumber, totalBonus);
 
     const newEmployeeData = {
         name,
@@ -83,9 +84,10 @@ function convertEmployeeData(originEmployee) {
 /**
  * Calculate the bonus percentage as a whole number between 0 and 100.
  * @param {object} employeeData
+ * @param {number} salaryNumber
  * @returns {number}
  */
-function calculateBonusPct(employeeData) {
+function calculateBonusPct(employeeData, salaryNumber) {
     let finalBonusPct = 0;
     const rating = employeeData.reviewRating;
 
@@ -113,8 +115,6 @@ function calculateBonusPct(employeeData) {
     }
 
     // income over $65,000 adjust bonus down 1%
-    const salaryNumber = parseInt(employeeData.annualSalary);
-
     if (salaryNumber > 65000) {
         finalBonusPct -= 1;
     }
@@ -134,12 +134,11 @@ function calculateBonusPct(employeeData) {
 
 /**
  * Calculate the ammount to be added to the employee annual salary given the bonus percentage provided.
- * @param {object} employeeData
+ * @param {number} annualSalary
  * @param {number} bonusPctInt
  * @returns {number}
  */
-function calculateBonusAmount(employeeData, bonusPctInt) {
-    const annualSalary = parseInt(employeeData.annualSalary);
+function calculateBonusAmount(annualSalary, bonusPctInt) {
     const bonusPct = bonusPctInt / 100;
     const finalBonusAmount = annualSalary * bonusPct;
 
@@ -148,12 +147,11 @@ function calculateBonusAmount(employeeData, bonusPctInt) {
 
 /**
  * Calculate the final adjusted salary with the totalBonus added to the employee's current salary.
- * @param {object} employeeData
+ * @param {number} salaryNumber
  * @param {number} totalBonus
  * @returns {number}
  */
-function calculateTotalCompensation(employeeData, totalBonus) {
-    const salaryNumber = parseInt(employeeData.annualSalary);
+function calculateTotalCompensation(salaryNumber, totalBonus) {
     const finalCompensation = salaryNumber + totalBonus;
 
     return finalCompensation;
