@@ -159,10 +159,6 @@ function calculateTotalCompensation(employeeData, totalBonus) {
     return finalCompensation;
 }
 
-console.table(employees);
-// console.log('New Employee Data: ');
-// console.table(processAllEmployees(employees));
-
 //
 // STRETCH GOALS
 // Rendering employee data to the DOM
@@ -178,7 +174,6 @@ function onReady() {
 }
 
 function clickCalcBonus(event) {
-    console.log('clicked Calculate Bonus');
     const employeeBonusList = processAllEmployees(employees);
 
     renderEmpoyeeBonuses(employeeBonusList);
@@ -207,7 +202,6 @@ function renderEmployees() {
 }
 
 function renderEmpoyeeBonuses(employeeBonuses) {
-    console.table(employeeBonusList);
     const $bonusesContainer = $('.js-bonusesContainer');
     const $bonusesTable = $(`<table cellspacing="0" class="cleanTable">
         <thead class="cleanTable-hd">

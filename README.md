@@ -701,5 +701,32 @@ for (let i = 0; i < employeeBonuses.length; i++) {
 
 ### Step 4.2: Remove Console Logging
 
+**removed**
+
 ```JS
+console.table(employees);
+// console.log('New Employee Data: ');
+// console.table(processAllEmployees(employees));
 ```
+
+**removed**
+
+```JS
+function clickCalcBonus(event) {
+    console.log('clicked Calculate Bonus');
+    const employeeBonusList = processAllEmployees(employees);
+
+    renderEmpoyeeBonuses(employeeBonusList);
+}
+```
+
+**removed**
+
+```JS
+function renderEmpoyeeBonuses(employeeBonuses) {
+    console.table(employeeBonusList);
+    const $bonusesContainer = $('.js-bonusesContainer');
+    const $bonusesTable = $(`<table cellspacing="0" class="cleanTable">
+```
+
+### Step 4.3:
