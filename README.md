@@ -771,4 +771,74 @@ function calculateTotalCompensation(salaryNumber, totalBonus) {
 }
 ```
 
-### Step 4.4:
+### Step 4.4: Separate Bonus Rules into Individual Functions
+
+```JS
+function adjustBonusForSeniority(originBonus, employeeId) {
+    let adjustedBonus = originBonus;
+
+    if (employeeId.length == 4) {
+        adjustedBonus += 5;
+    }
+
+    return adjustedBonus;
+}
+```
+
+```JS
+function adjustBonusForSalary(originBonus, salaryNumber) {
+    let adjustedBonus = originBonus;
+
+    if (salaryNumber > 65000) {
+        adjustedBonus -= 1;
+    }
+
+    return adjustedBonus;
+}
+```
+
+```JS
+function adjustBonusForMaxMin(originBonus) {
+    let adjustedBonus = originBonus;
+    const maxBonus = 13;
+    const minBonus = 0;
+
+    if (adjustedBonus > maxBonus) {
+        adjustedBonus = maxBonus;
+    } else if (adjustedBonus < minBonus) {
+        adjustedBonus = minBonus
+    }
+
+    return adjustedBonus;
+}
+```
+
+```JS
+function calculateBonusPct(employeeData, salaryNumber) {
+    let finalBonusPct = 0;
+    const rating = employeeData.reviewRating;
+
+    // adjust bonus based on the employee's rating
+    switch (rating) {
+        case 5:
+            finalBonusPct = 10;
+            break;
+        case 4:
+            finalBonusPct = 6;
+            break;
+        case 3:
+            finalBonusPct = 4;
+            break;
+        default:
+            finalBonusPct = 0;
+            break;
+    }
+
+    const employeeId = employeeData.employeeNumber;
+    finalBonusPct = adjustBonusForSeniority(finalBonusPct, employeeId);
+    finalBonusPct = adjustBonusForSalary(finalBonusPct, salaryNumber);
+    finalBonusPct = adjustBonusForMaxMin(finalBonusPct)
+
+    return finalBonusPct;
+}
+```

@@ -107,29 +107,64 @@ function calculateBonusPct(employeeData, salaryNumber) {
             break;
     }
 
-    // adjust the bonus based on ID length (4 digits long additional 5%)
     const employeeId = employeeData.employeeNumber;
+    finalBonusPct = adjustBonusForSeniority(finalBonusPct, employeeId);
+    finalBonusPct = adjustBonusForSalary(finalBonusPct, salaryNumber);
+    finalBonusPct = adjustBonusForMaxMin(finalBonusPct)
+
+    return finalBonusPct;
+}
+
+/**
+ * Adjusts the bonus provided based on ID length (4 digits long additional 5%)
+ * @param {number} originBonus
+ * @param {string} employeeId
+ * @returns {number}
+ */
+function adjustBonusForSeniority(originBonus, employeeId) {
+    let adjustedBonus = originBonus;
 
     if (employeeId.length == 4) {
-        finalBonusPct += 5;
+        adjustedBonus += 5;
     }
 
-    // income over $65,000 adjust bonus down 1%
+    return adjustedBonus;
+}
+
+/**
+ * Adjust bonus based on the annual salary. Over $65,000 gets bonus adjusted down by 1%.
+ * @param {number} originBonus
+ * @param {number} salaryNumber
+ * @returns {number}
+ */
+function adjustBonusForSalary(originBonus, salaryNumber) {
+    let adjustedBonus = originBonus;
+
     if (salaryNumber > 65000) {
-        finalBonusPct -= 1;
+        adjustedBonus -= 1;
     }
 
-    // no bonus above 13% or below 0%
+    return adjustedBonus;
+}
+
+/**
+ * Check the bonus value against the maximum and minimum values
+ * allowed and adjust the bonus if needed.
+ * @param {number} originBonus
+ * @returns {number}
+ */
+function adjustBonusForMaxMin(originBonus) {
+    let adjustedBonus = originBonus;
     const maxBonus = 13;
     const minBonus = 0;
 
-    if (finalBonusPct > maxBonus) {
-        finalBonusPct = maxBonus;
-    } else if (finalBonusPct < minBonus) {
-        finalBonusPct = minBonus
+    if (adjustedBonus > maxBonus) {
+        adjustedBonus = maxBonus;
+    } else if (adjustedBonus < minBonus) {
+        adjustedBonus = minBonus
     }
 
-    return finalBonusPct;
+    return adjustedBonus;
 }
 
 /**
