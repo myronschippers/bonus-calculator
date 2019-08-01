@@ -226,6 +226,10 @@ function calculateTotalCompensation(salaryNumber, totalBonus) {
 
 $(document).ready(onReady);
 
+/**
+ * Meant to run once when the DOM is fully loaded in order to initialize
+ * whatever is needed for the application.
+ */
 function onReady() {
     const $btnCalcBonuses = $('.js-calcBonuses');
 
@@ -233,6 +237,12 @@ function onReady() {
     render(employees, '.js-employees');
 }
 
+/**
+ * Click handler for the Calculate Bonus button that will call to the
+ * functions necessary for calculating the employee bonuses and then
+ * rendering those new bonuses to the DOM
+ * @param {object} event
+ */
 function clickCalcBonus(event) {
     const employeeBonusList = processAllEmployees(employees);
 
@@ -350,6 +360,11 @@ function addDataContentToTable(dataList, dataOrder, $table) {
     }
 }
 
+/**
+ * Fromats a number value into US Currency for a person readable format.
+ * @param {number} salary 
+ * @returns {string}
+ */
 function currencyFormatter(salary) {
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
