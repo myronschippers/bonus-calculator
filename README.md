@@ -644,3 +644,62 @@ function renderEmpoyeeBonuses(employeeBonuses) {
 ```
 
 WOOOO HOOOO!!!! I can see my table.
+
+## Step 4: Optimize
+
+### Step 4.1: Template Literals
+
+`renderEmployees`
+
+```JS
+for (let i = 0; i < employees.length; i++) {
+    const employee = employees[i];
+    const rowElement = `<tr>
+        <td class="cleanTable-cell">${employee.name}</td>
+        <td class="cleanTable-cell">${employee.employeeNumber}</td>
+        <td class="cleanTable-cell">${employee.annualSalary}</td>
+        <td class="cleanTable-cell">${employee.reviewRating}</td>
+    </tr>`;
+```
+
+`renderEmpoyeeBonuses`
+
+```JS
+const $bonusesTable = $(`<table cellspacing="0" class="cleanTable">
+    <thead class="cleanTable-hd">
+        <tr>
+            <td class="cleanTable-cell">Name</td>
+            <td class="cleanTable-cell">Bonus (Pct)</td>
+            <td class="cleanTable-cell">Bonus ($)</td>
+            <td class="cleanTable-cell">Total Conmpensation</td>
+        </tr>
+    </thead>
+    <tbody class="cleanTable-bd">
+    </tbody>
+    <tfoot class="cleanTable-ft">
+        <tr>
+            <td colspan="4" class="cleanTable-cell">
+                Bonuses are a reflection of company standards.
+            </td>
+        </tr>
+    </tfoot>
+</table>`);
+```
+
+&
+
+```JS
+for (let i = 0; i < employeeBonuses.length; i++) {
+    const employee = employeeBonuses[i];
+    const rowElement = `<tr>
+        <td class="cleanTable-cell">${employee.name}</td>
+        <td class="cleanTable-cell">${employee.bonusPercentage}</td>
+        <td class="cleanTable-cell">${employee.totalBonus}</td>
+        <td class="cleanTable-cell">${employee.totalCompensation}</td>
+    </tr>`;
+```
+
+### Step 4.2: Remove Console Logging
+
+```JS
+```

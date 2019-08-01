@@ -195,12 +195,12 @@ function renderEmployees() {
 
     for (let i = 0; i < employees.length; i++) {
         const employee = employees[i];
-        const rowElement = '<tr>'
-            + '<td class="cleanTable-cell">' + employee.name + '</td>'
-            + '<td class="cleanTable-cell">' + employee.employeeNumber + '</td>'
-            + '<td class="cleanTable-cell">' + employee.annualSalary + '</td>'
-            + '<td class="cleanTable-cell">' + employee.reviewRating + '</td>'
-        + '</tr>';
+        const rowElement = `<tr>
+            <td class="cleanTable-cell">${employee.name}</td>
+            <td class="cleanTable-cell">${employee.employeeNumber}</td>
+            <td class="cleanTable-cell">${employee.annualSalary}</td>
+            <td class="cleanTable-cell">${employee.reviewRating}</td>
+        </tr>`;
 
         $employeesTable.append(rowElement);
     }
@@ -209,36 +209,36 @@ function renderEmployees() {
 function renderEmpoyeeBonuses(employeeBonuses) {
     console.table(employeeBonusList);
     const $bonusesContainer = $('.js-bonusesContainer');
-    const $bonusesTable = $('<table cellspacing="0" class="cleanTable">'
-        + '<thead class="cleanTable-hd">'
-            + '<tr>'
-                + '<td class="cleanTable-cell">Name</td>'
-                + '<td class="cleanTable-cell">Bonus (Pct)</td>'
-                + '<td class="cleanTable-cell">Bonus ($)</td>'
-                + '<td class="cleanTable-cell">Total Conmpensation</td>'
-            + '</tr>'
-        + '</thead>'
-        + '<tbody class="cleanTable-bd">'
-        + '</tbody>'
-        + '<tfoot class="cleanTable-ft">'
-            + '<tr>'
-                + '<td colspan="4" class="cleanTable-cell">'
-                    + 'Bonuses are a reflection of company standards.'
-                + '</td>'
-            + '</tr>'
-        + '</tfoot>'
-    + '</table>');
+    const $bonusesTable = $(`<table cellspacing="0" class="cleanTable">
+        <thead class="cleanTable-hd">
+            <tr>
+                <td class="cleanTable-cell">Name</td>
+                <td class="cleanTable-cell">Bonus (Pct)</td>
+                <td class="cleanTable-cell">Bonus ($)</td>
+                <td class="cleanTable-cell">Total Conmpensation</td>
+            </tr>
+        </thead>
+        <tbody class="cleanTable-bd">
+        </tbody>
+        <tfoot class="cleanTable-ft">
+            <tr>
+                <td colspan="4" class="cleanTable-cell">
+                    Bonuses are a reflection of company standards.
+                </td>
+            </tr>
+        </tfoot>
+    </table>`);
 
     const $bonusesTbody = $bonusesTable.appendTo($bonusesContainer).find('tbody');
 
     for (let i = 0; i < employeeBonuses.length; i++) {
         const employee = employeeBonuses[i];
-        const rowElement = '<tr>'
-            + '<td class="cleanTable-cell">' + employee.name + '</td>'
-            + '<td class="cleanTable-cell">' + employee.bonusPercentage + '</td>'
-            + '<td class="cleanTable-cell">' + employee.totalBonus + '</td>'
-            + '<td class="cleanTable-cell">' + employee.totalCompensation + '</td>'
-        + '</tr>';
+        const rowElement = `<tr>
+            <td class="cleanTable-cell">${employee.name}</td>
+            <td class="cleanTable-cell">${employee.bonusPercentage}</td>
+            <td class="cleanTable-cell">${employee.totalBonus}</td>
+            <td class="cleanTable-cell">${employee.totalCompensation}</td>
+        </tr>`;
 
         $bonusesTbody.append(rowElement);
     }
