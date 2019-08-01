@@ -645,6 +645,53 @@ function renderEmpoyeeBonuses(employeeBonuses) {
 
 WOOOO HOOOO!!!! I can see my table.
 
+### Step 3.3: Formatting Numbers as Currency
+
+```JS
+function currencyFormatter(salary) {
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
+    });
+    const usCurrency = formatter.format(salary);
+
+    return usCurrency;
+}
+```
+
+`renderEmployees`
+
+```JS
+for (let i = 0; i < employees.length; i++) {
+    const employee = employees[i];
+    const rowElement = '<tr>'
+        + '<td class="cleanTable-cell">' + employee.name + '</td>'
+        + '<td class="cleanTable-cell">' + employee.employeeNumber + '</td>'
+        + '<td class="cleanTable-cell">' + currencyFormatter(employee.annualSalary) + '</td>'
+        + '<td class="cleanTable-cell">' + employee.reviewRating + '</td>'
+    + '</tr>';
+
+    $employeesTable.append(rowElement);
+}
+```
+
+`renderEmpoyeeBonuses`
+
+```JS
+for (let i = 0; i < employeeBonuses.length; i++) {
+    const employee = employeeBonuses[i];
+    const rowElement = '<tr>'
+        + '<td class="cleanTable-cell">' + employee.name + '</td>'
+        + '<td class="cleanTable-cell">' + employee.bonusPercentage + '</td>'
+        + '<td class="cleanTable-cell">' + currencyFormatter(employee.totalBonus) + '</td>'
+        + '<td class="cleanTable-cell">' + currencyFormatter(employee.totalCompensation) + '</td>'
+    + '</tr>';
+
+    $bonusesTbody.append(rowElement);
+}
+```
+
 ## Step 4: Optimize
 
 ### Step 4.1: Template Literals

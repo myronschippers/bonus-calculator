@@ -43,12 +43,17 @@ const employees = [
 const ORIGIN_KEYS = [
     'name',
     'employeeNumber',
-    'annualSalary',
     'reviewRating',
+    'annualSalary',
 ];
 const BONUS_KEYS = [
     'name',
     'bonusPercentage',
+    'totalBonus',
+    'totalCompensation',
+];
+const CURRENCY_PROPS = [
+    'annualSalary',
     'totalBonus',
     'totalCompensation',
 ];
@@ -334,9 +339,24 @@ function addDataContentToTable(dataList, dataOrder, $table) {
 
         for (let j = 0; j < dataOrder.length; j++) {
             const cellKey = dataOrder[j];
-            const cellValue = dataRow[cellKey];
+            let cellValue = dataRow[cellKey];
+
+            if (CURRENCY_PROPS.indexOf(cellKey) !== -1) {
+                cellValue = currencyFormatter(cellValue);
+            }
 
             $tbRow.append(`<td class="cleanTable-cell">${cellValue}</td>`);
         }
     }
+}
+
+function currencyFormatter(salary) {
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
+    });
+    const usCurrency = formatter.format(salary);
+
+    return usCurrency;
 }
