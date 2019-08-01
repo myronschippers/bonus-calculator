@@ -198,7 +198,7 @@ function renderEmployees() {
         const rowElement = '<tr>'
             + '<td class="cleanTable-cell">' + employee.name + '</td>'
             + '<td class="cleanTable-cell">' + employee.employeeNumber + '</td>'
-            + '<td class="cleanTable-cell">' + employee.annualSalary + '</td>'
+            + '<td class="cleanTable-cell">' + currencyFormatter(employee.annualSalary) + '</td>'
             + '<td class="cleanTable-cell">' + employee.reviewRating + '</td>'
         + '</tr>';
 
@@ -236,10 +236,21 @@ function renderEmpoyeeBonuses(employeeBonuses) {
         const rowElement = '<tr>'
             + '<td class="cleanTable-cell">' + employee.name + '</td>'
             + '<td class="cleanTable-cell">' + employee.bonusPercentage + '</td>'
-            + '<td class="cleanTable-cell">' + employee.totalBonus + '</td>'
-            + '<td class="cleanTable-cell">' + employee.totalCompensation + '</td>'
+            + '<td class="cleanTable-cell">' + currencyFormatter(employee.totalBonus) + '</td>'
+            + '<td class="cleanTable-cell">' + currencyFormatter(employee.totalCompensation) + '</td>'
         + '</tr>';
 
         $bonusesTbody.append(rowElement);
     }
+}
+
+function currencyFormatter(salary) {
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2
+    });
+    const usCurrency = formatter.format(salary);
+
+    return usCurrency;
 }
