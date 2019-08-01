@@ -842,3 +842,175 @@ function calculateBonusPct(employeeData, salaryNumber) {
     return finalBonusPct;
 }
 ```
+
+### Step 4.5: Consolidate Similar Render Functions
+
+```HTML
+<body>
+    <h1>Bonus Calculator Object Challenge</h1>
+
+    <div class="container js-employees">
+    </div>
+
+    <div class="container utlText-alnRight">
+        <button class="btn js-calcBonuses">Calculate Bonuses</button>
+    </div>
+
+    <div class="container js-bonusesContainer"></div>
+</body>
+```
+
+```JS
+function onReady() {
+    const $btnCalcBonuses = $('.js-calcBonuses');
+
+    $btnCalcBonuses.on('click', clickCalcBonus);
+    render(employees, '.js-employees');
+}
+
+function clickCalcBonus(event) {
+    const employeeBonusList = processAllEmployees(employees);
+
+    render(employeeBonusList, '.js-bonusesContainer');
+}
+```
+
+```JS
+function render(employeeData, elementSelector) {
+    const $element = $(elementSelector);
+    const $table = createTableElement(employeeData);
+
+    $element.append($table);
+}
+```
+
+```JS
+function createTableElement(employeeData) {
+    const $tableElem = $(`<table cellspacing="0" class="cleanTable">
+        <thead class="cleanTable-hd">
+            <tr>
+            </tr>
+        </thead>
+        <tbody class="cleanTable-bd">
+        </tbody>
+        <tfoot class="cleanTable-ft">
+        </tfoot>
+    </table>`);
+
+    return $tableElem;
+}
+```
+
+```JS
+function addFootToTable(data, $table) {
+    let footerText = 'Original employee information.';
+    const colCount = Object.keys(data).length;
+    
+    if (data.bonusPercentage != null) {
+        footerText = 'Bonuses based on company standards.';
+    }
+
+    $table.find('tfoot')
+        .append(`<tr>
+            <td colspan="${colCount}" class="cleanTable-cell">${footerText}</td>
+        </tr>`);
+}
+```
+
+just above the `processAllEmployees` function
+
+```JS
+const ORIGIN_KEYS = [
+    'name',
+    'employeeNumber',
+    'annualSalary',
+    'reviewRating',
+];
+const BONUS_KEYS = [
+    'name',
+    'bonusPercentage',
+    'totalBonus',
+    'totalCompensation',
+];
+const DATA_LABELS = {
+    name: 'Name',
+    employeeNumber: 'ID',
+    annualSalary: 'Salary',
+    reviewRating: 'Rating',
+    bonusPercentage: 'Bonus (%)',
+    totalCompensation: 'Compensation',
+    totalBonus: 'Bonus ($)',
+};
+```
+
+```JS
+function addDataToTable(dataList, $table) {
+    const $thRow = $table.find('thead > tr');
+    const dataStructure = dataList[0];
+    let dataKeys = [];
+
+    if (dataStructure.annualSalary != null) {
+        dataKeys = ORIGIN_KEYS;
+    } else if (dataStructure.bonusPercentage != null) {
+        dataKeys = BONUS_KEYS;
+    }
+
+    for (let i = 0; i < dataKeys.length; i++) {
+        const indvKey = dataKeys[i];
+        const colLabel = DATA_LABELS[indvKey];
+        
+        $thRow.append(`<td class="cleanTable-cell">${colLabel}</td>`);
+    }
+
+    addDataContentToTable(dataList, dataKeys, $table);
+}
+```
+
+`createTableElement`
+
+```JS
+function createTableElement(employeeData) {
+    const $tableElem = $(`<table cellspacing="0" class="cleanTable">
+        <thead class="cleanTable-hd">
+            <tr>
+            </tr>
+        </thead>
+        <tbody class="cleanTable-bd">
+        </tbody>
+        <tfoot class="cleanTable-ft">
+        </tfoot>
+    </table>`);
+
+    addFootToTable(employeeData[0], $tableElem);
+    addDataToTable(employeeData, $tableElem);
+
+    return $tableElem;
+}
+```
+
+```JS
+    // .. rest of addDataToTable code ...
+
+    addDataContentToTable(dataList, dataKeys, $table);
+}
+```
+
+```JS
+function addDataContentToTable(dataList, dataOrder, $table) {
+    const $tbody = $table.find('tbody');
+
+    for (let i = 0; i < dataList.length; i++) {
+        const dataRow = dataList[i];
+        const $tbRow = $tbody.append(`<tr></tr>`).find('tr:last-child');
+
+        for (let j = 0; j < dataOrder.length; j++) {
+            const cellKey = dataOrder[j];
+            const cellValue = dataRow[cellKey];
+
+            $tbRow.append(`<td class="cleanTable-cell">${cellValue}</td>`);
+        }
+    }
+}
+```
+
+remove `renderEmployees` & `renderEmpoyeeBonuses`

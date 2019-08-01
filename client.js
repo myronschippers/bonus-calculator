@@ -40,6 +40,28 @@ const employees = [
 // This is not a race. Everyone on your team should understand what is happening.
 // Ask questions when you don't.
 
+const ORIGIN_KEYS = [
+    'name',
+    'employeeNumber',
+    'annualSalary',
+    'reviewRating',
+];
+const BONUS_KEYS = [
+    'name',
+    'bonusPercentage',
+    'totalBonus',
+    'totalCompensation',
+];
+const DATA_LABELS = {
+    name: 'Name',
+    employeeNumber: 'ID',
+    annualSalary: 'Salary',
+    reviewRating: 'Rating',
+    bonusPercentage: 'Bonus (%)',
+    totalCompensation: 'Compensation',
+    totalBonus: 'Bonus ($)',
+};
+
 /**
  * Loops through a list of employees creating a new list of alternate employee data.
  * @param {array} employeeList
@@ -203,70 +225,118 @@ function onReady() {
     const $btnCalcBonuses = $('.js-calcBonuses');
 
     $btnCalcBonuses.on('click', clickCalcBonus);
-    renderEmployees();
+    render(employees, '.js-employees');
 }
 
 function clickCalcBonus(event) {
     const employeeBonusList = processAllEmployees(employees);
 
-    renderEmpoyeeBonuses(employeeBonusList);
+    render(employeeBonusList, '.js-bonusesContainer');
 }
 
 /**
- * Uses the `employees` array to render the original employee data to the DOM.
- * table selector - `.js-employees`
+ * Appends a table containing the data provided to the DOM
+ * element that matches the elementSelector.
+ * @param {array} employeeData
+ * @param {string} elementSelector
  */
-function renderEmployees() {
-    const $employeesTable = $('.js-employees');
+function render(employeeData, elementSelector) {
+    const $element = $(elementSelector);
+    const $table = createTableElement(employeeData);
 
-    $employeesTable.empty();
-
-    for (let i = 0; i < employees.length; i++) {
-        const employee = employees[i];
-        const rowElement = `<tr>
-            <td class="cleanTable-cell">${employee.name}</td>
-            <td class="cleanTable-cell">${employee.employeeNumber}</td>
-            <td class="cleanTable-cell">${employee.annualSalary}</td>
-            <td class="cleanTable-cell">${employee.reviewRating}</td>
-        </tr>`;
-
-        $employeesTable.append(rowElement);
-    }
+    $element.append($table);
 }
 
-function renderEmpoyeeBonuses(employeeBonuses) {
-    const $bonusesContainer = $('.js-bonusesContainer');
-    const $bonusesTable = $(`<table cellspacing="0" class="cleanTable">
+/**
+ * Creates an HTML table as a jQuery element.
+ * @param {array} employeeData
+ * @returns {jQuery}
+ */
+function createTableElement(employeeData) {
+    const $tableElem = $(`<table cellspacing="0" class="cleanTable">
         <thead class="cleanTable-hd">
             <tr>
-                <td class="cleanTable-cell">Name</td>
-                <td class="cleanTable-cell">Bonus (Pct)</td>
-                <td class="cleanTable-cell">Bonus ($)</td>
-                <td class="cleanTable-cell">Total Conmpensation</td>
             </tr>
         </thead>
         <tbody class="cleanTable-bd">
         </tbody>
         <tfoot class="cleanTable-ft">
-            <tr>
-                <td colspan="4" class="cleanTable-cell">
-                    Bonuses are a reflection of company standards.
-                </td>
-            </tr>
         </tfoot>
     </table>`);
 
-    const $bonusesTbody = $bonusesTable.appendTo($bonusesContainer).find('tbody');
+    addFootToTable(employeeData[0], $tableElem);
+    addDataToTable(employeeData, $tableElem);
 
-    for (let i = 0; i < employeeBonuses.length; i++) {
-        const employee = employeeBonuses[i];
-        const rowElement = `<tr>
-            <td class="cleanTable-cell">${employee.name}</td>
-            <td class="cleanTable-cell">${employee.bonusPercentage}</td>
-            <td class="cleanTable-cell">${employee.totalBonus}</td>
-            <td class="cleanTable-cell">${employee.totalCompensation}</td>
-        </tr>`;
+    return $tableElem;
+}
 
-        $bonusesTbody.append(rowElement);
+/**
+ * Add a footer with specialized text to the table element provided.
+ * @param {object} data
+ * @param {jQuery} $table
+ */
+function addFootToTable(data, $table) {
+    let footerText = 'Original employee information.';
+    const colCount = Object.keys(data).length;
+    
+    if (data.bonusPercentage != null) {
+        footerText = 'Bonuses based on company standards.';
+    }
+
+    $table.find('tfoot')
+        .append(`<tr>
+            <td colspan="${colCount}" class="cleanTable-cell">${footerText}</td>
+        </tr>`);
+}
+
+/**
+ * Add a header and body to the table element provided. Both the
+ * column headers and the body will be based off of the data
+ * list provided.
+ * @param {object} dataList
+ * @param {jQuery} $table
+ */
+function addDataToTable(dataList, $table) {
+    const $thRow = $table.find('thead > tr');
+    const dataStructure = dataList[0];
+    let dataKeys = [];
+
+    if (dataStructure.annualSalary != null) {
+        dataKeys = ORIGIN_KEYS;
+    } else if (dataStructure.bonusPercentage != null) {
+        dataKeys = BONUS_KEYS;
+    }
+
+    for (let i = 0; i < dataKeys.length; i++) {
+        const indvKey = dataKeys[i];
+        const colLabel = DATA_LABELS[indvKey];
+        
+        $thRow.append(`<td class="cleanTable-cell">${colLabel}</td>`);
+    }
+
+    addDataContentToTable(dataList, dataKeys, $table);
+}
+
+/**
+ * Add a body to the table element provided. The table
+ * body will be filled with the data provided in the
+ * dataList passed to the function.
+ * @param {array} dataList
+ * @param {array} dataOrder
+ * @param {jQuery} $table
+ */
+function addDataContentToTable(dataList, dataOrder, $table) {
+    const $tbody = $table.find('tbody');
+
+    for (let i = 0; i < dataList.length; i++) {
+        const dataRow = dataList[i];
+        const $tbRow = $tbody.append(`<tr></tr>`).find('tr:last-child');
+
+        for (let j = 0; j < dataOrder.length; j++) {
+            const cellKey = dataOrder[j];
+            const cellValue = dataRow[cellKey];
+
+            $tbRow.append(`<td class="cleanTable-cell">${cellValue}</td>`);
+        }
     }
 }
